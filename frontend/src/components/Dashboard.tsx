@@ -844,6 +844,8 @@ const Dashboard: React.FC = () => {
               </ResponsiveContainer>
             </div>
           </div>
+        )}
+
         {/* ML Model Metrics */}
         {ml && (
           <div className="glass" style={{ padding: '18px' }}>
