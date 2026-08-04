@@ -57,7 +57,7 @@ const PredictionPanel: React.FC<PredictionPanelProps> = ({ predictions, onSelect
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <Sparkles size={18} color="var(--accent-orange)" />
           <div>
-            <h2 style={{ fontFamily: 'Outfit', fontSize: '18px', fontWeight: 700 }}>AI Prediction — 24h Forecast</h2>
+            <h2 style={{ fontFamily: 'Outfit', fontSize: '18px', fontWeight: 700 }}>24-Hour Predictive Analysis</h2>
             <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>XGBoost model · Tomorrow's fill levels</p>
           </div>
         </div>

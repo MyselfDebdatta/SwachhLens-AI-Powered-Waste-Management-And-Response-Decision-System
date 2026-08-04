@@ -93,6 +93,7 @@ const RouteCard: React.FC<RouteCardProps> = ({ route, sr, color }) => {
       overflow: 'hidden',
       transition: 'all 0.25s ease',
       boxShadow: expanded ? `0 0 20px ${color}20` : 'var(--shadow-sm)',
+      flexShrink: 0,
     }}>
       {/* Header */}
       <button
@@ -166,7 +167,7 @@ const RouteCard: React.FC<RouteCardProps> = ({ route, sr, color }) => {
 
           {/* Turn-by-turn list */}
           {displayedSteps.length > 0 ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', maxHeight: '300px', overflowY: 'auto' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
               {displayedSteps.map((step, i) => (
                 <div key={i} style={{
                   display: 'flex', alignItems: 'center', gap: '10px',
@@ -257,7 +258,7 @@ const StreetRoutePanel: React.FC<StreetRoutePanelProps> = ({ routes, streetRoute
         <Navigation size={20} color="var(--accent-cyan)" />
         <div>
           <div style={{ fontFamily: 'Outfit', fontWeight: 800, fontSize: '17px', color: 'var(--text-primary)' }}>
-            Street Route Details
+            Optimized Route Analysis
           </div>
           <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '2px' }}>
             Real road distances calculated via OSRM Engine
