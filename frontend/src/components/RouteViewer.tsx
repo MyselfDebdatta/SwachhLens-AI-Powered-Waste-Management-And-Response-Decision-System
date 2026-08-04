@@ -168,7 +168,7 @@ const RouteViewer = ({ routes, onSelectBin }: RouteViewerProps) => {
                       <div>
                         {isDepot ? (
                           <span style={{ fontFamily: 'Outfit', fontWeight: 'bold', fontSize: '13px', color: '#f8fafc' }}>
-                            {isStart ? '🚀 Central Depot (Departure)' : '🏁 Central Depot (Return)'}
+                            {isStart ? 'Central Depot (Departure)' : 'Central Depot (Return)'}
                           </span>
                         ) : (
                           <button

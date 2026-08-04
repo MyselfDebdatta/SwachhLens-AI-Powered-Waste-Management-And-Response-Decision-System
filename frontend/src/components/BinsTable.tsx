@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ChevronUp, ChevronDown } from 'lucide-react';
+import { Search, ChevronUp, ChevronDown, Battery, Wifi } from 'lucide-react';
 
 interface BinData {
   bin_id: string;
@@ -213,16 +213,20 @@ const BinsTable: React.FC<BinsTableProps> = ({ bins, onSelectBin, selectedBinId 
                     ) : <span style={{ color: 'var(--text-muted)' }}>—</span>}
                   </td>
                   <td>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: '60px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <Battery size={13} color={(bin.battery_level ?? 100) < 20 ? 'var(--color-danger)' : 'var(--color-success)'} />
                       <span style={{ fontSize: '12px', color: (bin.battery_level ?? 100) < 20 ? 'var(--color-danger)' : 'var(--text-primary)' }}>
-                        🔋 {(bin.battery_level ?? 100).toFixed(0)}%
+                        {(bin.battery_level ?? 100).toFixed(0)}%
                       </span>
                     </div>
                   </td>
                   <td>
-                    <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
-                      📡 {bin.signal_strength ?? 90}%
-                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                      <Wifi size={13} color="var(--accent-cyan)" />
+                      <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+                        {bin.signal_strength ?? 90}%
+                      </span>
+                    </div>
                   </td>
                   <td>
                     <span className={`status-badge ${bin.status === 'Active' ? 'active' : 'offline'}`}>

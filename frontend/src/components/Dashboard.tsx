@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Map, Navigation, BarChart3, Trash2, RefreshCw, Sparkles,
   Database, Bell, Settings, Truck, Activity, Play,
-  AlertTriangle, TrendingUp, Info, Wind, Plus, Wrench
+  AlertTriangle, TrendingUp, Info, Wind, Plus, Wrench, Recycle, Star, BrainCircuit
 } from 'lucide-react';
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -846,11 +846,9 @@ const Dashboard: React.FC = () => {
           </div>
         )}
 
-        {/* ML Model Metrics */}
-        {ml && (
           <div className="glass" style={{ padding: '18px' }}>
-            <h3 style={{ fontFamily: 'Outfit', fontWeight: 700, fontSize: '15px', marginBottom: '14px' }}>
-              🔮 ML Model Performance
+            <h3 style={{ fontFamily: 'Outfit', fontWeight: 700, fontSize: '15px', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <BrainCircuit size={16} color="var(--accent-cyan)" /> ML Model Performance
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
               {Object.entries(ml).map(([model, metrics]: any) => (
@@ -859,8 +857,9 @@ const Dashboard: React.FC = () => {
                   borderRadius: '10px', padding: '14px',
                   borderTop: model === 'XGBoost Regressor' ? '2px solid var(--color-success)' : '2px solid transparent'
                 }}>
-                  <div style={{ fontFamily: 'Outfit', fontWeight: 700, fontSize: '13px', color: model === 'XGBoost Regressor' ? 'var(--color-success)' : 'var(--text-primary)', marginBottom: '8px' }}>
-                    {model === 'XGBoost Regressor' ? '⭐ ' : ''}{model}
+                  <div style={{ fontFamily: 'Outfit', fontWeight: 700, fontSize: '13px', color: model === 'XGBoost Regressor' ? 'var(--color-success)' : 'var(--text-primary)', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {model === 'XGBoost Regressor' ? <Star size={13} color="var(--color-warning)" fill="var(--color-warning)" /> : null}
+                    <span>{model}</span>
                   </div>
                   {[
                     { k: 'MAE', v: metrics.MAE?.toFixed(2), note: 'lower better' },
@@ -1012,7 +1011,9 @@ const Dashboard: React.FC = () => {
       <aside className="sidebar">
         <div className="sidebar-logo">
           <div className="sidebar-brand">
-            <div className="sidebar-brand-icon">♻️</div>
+            <div className="sidebar-brand-icon">
+              <Recycle size={22} color="#ffffff" />
+            </div>
             <div className="sidebar-brand-text">
               <h1>SwachhLens AI</h1>
               <p>Hyderabad Municipal Corp.</p>

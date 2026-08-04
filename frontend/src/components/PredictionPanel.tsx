@@ -103,9 +103,9 @@ const PredictionPanel: React.FC<PredictionPanelProps> = ({ predictions, onSelect
           fontSize: '12px', fontWeight: 600, marginLeft: 'auto',
           background: showOnlyCritical ? 'var(--color-danger-dim)' : 'rgba(255,255,255,0.04)',
           color: showOnlyCritical ? 'var(--color-danger)' : 'var(--text-secondary)',
-          transition: 'all 0.15s ease'
+          transition: 'all 0.15s ease', display: 'inline-flex', alignItems: 'center', gap: '6px'
         }}>
-          {showOnlyCritical ? '⚠ Critical Only' : 'All Bins'}
+          {showOnlyCritical ? <><AlertTriangle size={13} color="var(--color-danger)" /> Critical Only</> : 'All Bins'}
         </button>
       </div>
 

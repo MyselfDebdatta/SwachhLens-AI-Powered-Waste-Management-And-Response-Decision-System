@@ -410,7 +410,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
         {/* Depot Marker */}
         <Marker position={HYDERABAD_CENTER} icon={depotIcon}>
           <Popup>
-            <div style={{ fontFamily: 'Outfit', fontWeight: 'bold', fontSize: '14px' }}>🏛 GHMC Depot — Hyderabad</div>
+            <div style={{ fontFamily: 'Outfit', fontWeight: 'bold', fontSize: '14px', color: '#f8fafc' }}>GHMC Depot — Hyderabad</div>
             <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
               Municipal Corporation Operations HQ<br />
               Lat: {HYDERABAD_CENTER[0].toFixed(4)}, Lon: {HYDERABAD_CENTER[1].toFixed(4)}
@@ -440,8 +440,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
                       {bin.area_type}
                     </span>
                   </div>
-                  <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '8px' }}>
-                    📍 {bin.street_name || '—'}<br />{bin.ward || ''}
+                  <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '8px' }}>
+                    {bin.street_name || '—'}<br />{bin.ward || ''}
                   </div>
                   <div style={{ marginBottom: '8px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
@@ -452,11 +452,11 @@ const MapComponent: React.FC<MapComponentProps> = ({
                       <div className={`fill-bar ${fillClass}`} style={{ width: `${liveFill}%` }} />
                     </div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', fontSize: '11px', color: '#64748b', marginBottom: '8px' }}>
-                    <span>🔋 {(bin.battery_level ?? 100).toFixed(0)}%</span>
-                    <span>📡 {bin.signal_strength ?? 90}%</span>
-                    <span>🌡️ {bin.temperature ? bin.temperature.toFixed(1) : '--'}°C</span>
-                    <span>📦 {bin.capacity}L cap</span>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px', fontSize: '11px', color: '#94a3b8', marginBottom: '8px' }}>
+                    <span>Battery: {(bin.battery_level ?? 100).toFixed(0)}%</span>
+                    <span>Signal: {bin.signal_strength ?? 90}%</span>
+                    <span>Temp: {bin.temperature ? bin.temperature.toFixed(1) : '--'}°C</span>
+                    <span>Capacity: {bin.capacity}L</span>
                   </div>
                   <button onClick={() => onSelectBin(bin.bin_id)} style={{
                     width: '100%', padding: '6px', border: 'none', borderRadius: '6px',

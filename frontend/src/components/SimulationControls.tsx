@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Square, RotateCcw, Zap, Info } from 'lucide-react';
+import { Play, Square, RotateCcw, Zap, Info, Cpu } from 'lucide-react';
 
 interface SimulationControlsProps {
   isRunning: boolean;
@@ -138,8 +138,8 @@ const SimulationControls: React.FC<SimulationControlsProps> = ({
 
       {/* ESP32 API Reference */}
       <div style={{ background: 'var(--bg-glass)', border: '1px solid var(--border-glass)', borderRadius: '14px', padding: '18px 20px' }}>
-        <div style={{ fontFamily: 'Outfit', fontWeight: 700, marginBottom: '10px', fontSize: '14px', color: 'var(--text-primary)' }}>
-          📡 ESP32 Hardware Integration — API Reference
+        <div style={{ fontFamily: 'Outfit', fontWeight: 700, marginBottom: '10px', fontSize: '14px', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Cpu size={16} color="var(--accent-cyan)" /> ESP32 Hardware Integration — API Reference
         </div>
         <pre style={{
           background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.06)',

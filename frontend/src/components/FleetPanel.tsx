@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Truck, User, MapPin, Navigation, Gauge, CheckCircle, QrCode } from 'lucide-react';
+import { Truck, User, MapPin, Navigation, Gauge, CheckCircle, QrCode, Building2 } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 
 interface TruckData {
@@ -230,9 +230,10 @@ const FleetPanel: React.FC<FleetPanelProps> = ({ trucks, routes, onSelectBin, on
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         <div>
                           {isDepot ? (
-                            <span style={{ fontWeight: 700, fontSize: '12px', color: 'var(--text-primary)' }}>
-                              {idx === 0 ? '🚀 GHMC Depot (Start)' : '🏁 GHMC Depot (Return)'}
-                            </span>
+                             <span style={{ fontWeight: 700, fontSize: '12px', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                               <Building2 size={13} color="var(--accent-cyan)" />
+                               <span>{idx === 0 ? 'GHMC Depot (Start)' : 'GHMC Depot (Return)'}</span>
+                             </span>
                           ) : (
                             <button onClick={() => onSelectBin(node.bin_id)} style={{
                               background: 'none', border: 'none', color: routeColor,

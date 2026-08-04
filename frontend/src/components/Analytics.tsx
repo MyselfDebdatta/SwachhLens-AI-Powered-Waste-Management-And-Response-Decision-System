@@ -3,7 +3,7 @@ import {
   ResponsiveContainer, Legend, AreaChart, Area, 
   LineChart, Line 
 } from 'recharts';
-import { ShieldAlert, TrendingUp, Sparkles, Mail, X } from 'lucide-react';
+import { ShieldAlert, TrendingUp, Sparkles, Mail, X, BrainCircuit } from 'lucide-react';
 import { useState } from 'react';
 import { sendEmailAlert } from '../utils/emailjs';
 
@@ -292,8 +292,8 @@ const Analytics = ({ comparison, savings, ml_evaluation, area_breakdown }: Analy
       {/* Row 3: ML Model Accuracy Evaluations (Only if trained) */}
       {mlCompareData.length > 0 && (
         <div className="glass-panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <h4 style={{ fontFamily: 'Outfit', fontSize: '15px', fontWeight: 'bold' }}>
-            🔮 Forecast Model Training Benchmarks
+          <h4 style={{ fontFamily: 'Outfit', fontSize: '15px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <BrainCircuit size={16} color="var(--accent-purple)" /> Forecast Model Training Benchmarks
           </h4>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '16px' }}>
             <div style={{ height: '220px' }} className="chart-container">
