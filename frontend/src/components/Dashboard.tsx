@@ -1070,36 +1070,68 @@ const Dashboard: React.FC = () => {
       <div className="main-content">
         {/* Top Bar */}
         <div className="top-bar">
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <h2 style={{ fontFamily: 'Outfit', fontWeight: 700, fontSize: '16px', color: 'var(--text-primary)' }}>
-              {NAV_ITEMS.find(n => n.key === activeTab)?.label}
-            </h2>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
-              GHMC — Greater Hyderabad Municipal Corporation
-            </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <div style={{
+              width: '42px', height: '42px', borderRadius: '12px',
+              background: 'var(--accent-cyan-dim)', border: '1px solid rgba(6,182,212,0.3)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 0 15px rgba(6,182,212,0.2)'
+            }}>
+              {NAV_ITEMS.find(n => n.key === activeTab)?.icon}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <h2 className="top-bar-title" style={{ margin: 0, fontSize: '20px' }}>
+                  {NAV_ITEMS.find(n => n.key === activeTab)?.label}
+                </h2>
+                <span style={{
+                  padding: '2px 8px', borderRadius: '20px', fontSize: '10px', fontWeight: 700,
+                  background: 'var(--accent-cyan-dim)', color: 'var(--accent-cyan)',
+                  border: '1px solid rgba(6,182,212,0.3)', textTransform: 'uppercase', letterSpacing: '0.05em'
+                }}>
+                  Live AI Engine
+                </span>
+              </div>
+              <span style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '2px', fontWeight: 500 }}>
+                Municipal Waste Management Command Center · <strong style={{ color: 'var(--text-secondary)' }}>GHMC Hyderabad</strong>
+              </span>
+            </div>
           </div>
 
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginLeft: 'auto' }}>
-            <div className="topbar-stat">
+            <div className="topbar-stat" style={{ border: '1px solid rgba(16,185,129,0.3)', background: 'var(--color-success-dim)' }}>
               <div className="live-dot" />
-              <span style={{ color: 'var(--color-success)', fontWeight: 600, fontSize: '12px' }}>
+              <span style={{ color: '#34d399', fontWeight: 700, fontSize: '12px' }}>
                 {simRunning ? `Sim ${simSpeed}×` : 'Live Monitor'}
               </span>
             </div>
-            <div className="topbar-stat">
-              <Trash2 size={12} color="var(--accent-cyan)" />
-              <span>{bins.length} bins</span>
+            <div className="topbar-stat" style={{ border: '1px solid rgba(6,182,212,0.25)' }}>
+              <Trash2 size={13} color="var(--accent-cyan)" />
+              <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{bins.length}</span>
+              <span style={{ color: 'var(--text-muted)' }}>bins</span>
             </div>
-            <div className="topbar-stat">
-              <AlertTriangle size={12} color={criticalBins > 0 ? 'var(--color-danger)' : 'var(--text-muted)'} />
-              <span style={{ color: criticalBins > 0 ? 'var(--color-danger)' : undefined }}>{criticalBins} critical</span>
+            <div className="topbar-stat" style={{
+              border: criticalBins > 0 ? '1px solid rgba(239,68,68,0.4)' : '1px solid var(--border-glass)',
+              background: criticalBins > 0 ? 'var(--color-danger-dim)' : undefined
+            }}>
+              <AlertTriangle size={13} color={criticalBins > 0 ? '#f87171' : 'var(--text-muted)'} />
+              <span style={{ color: criticalBins > 0 ? '#f87171' : 'var(--text-primary)', fontWeight: 700 }}>{criticalBins}</span>
+              <span style={{ color: criticalBins > 0 ? '#f87171' : 'var(--text-muted)' }}>critical</span>
             </div>
-            <div className="topbar-stat">
-              <Wind size={12} color="var(--color-success)" />
-              <span style={{ color: 'var(--color-success)' }}>-{co2Saved} kg CO₂</span>
+            <div className="topbar-stat" style={{ border: '1px solid rgba(16,185,129,0.25)' }}>
+              <Wind size={13} color="var(--color-success)" />
+              <span style={{ color: '#34d399', fontWeight: 700 }}>-{co2Saved} kg</span>
+              <span style={{ color: 'var(--text-muted)' }}>CO₂</span>
             </div>
             <button onClick={fetchAll} disabled={loading || actionLoading !== null}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}>
+              title="Refresh Live Data"
+              style={{
+                width: '36px', height: '36px', borderRadius: '10px',
+                background: 'var(--bg-tertiary)', border: '1px solid var(--border-glass)',
+                cursor: 'pointer', color: 'var(--text-primary)', display: 'flex',
+                alignItems: 'center', justifyContent: 'center', transition: 'var(--transition-fast)',
+                boxShadow: 'var(--shadow-sm)'
+              }}>
               <RefreshCw size={14} className={loading ? 'spin' : ''} />
             </button>
           </div>
