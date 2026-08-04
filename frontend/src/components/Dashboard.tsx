@@ -844,8 +844,8 @@ const Dashboard: React.FC = () => {
               </ResponsiveContainer>
             </div>
           </div>
-        )}
-
+        {/* ML Model Metrics */}
+        {ml && (
           <div className="glass" style={{ padding: '18px' }}>
             <h3 style={{ fontFamily: 'Outfit', fontWeight: 700, fontSize: '15px', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <BrainCircuit size={16} color="var(--accent-cyan)" /> ML Model Performance
