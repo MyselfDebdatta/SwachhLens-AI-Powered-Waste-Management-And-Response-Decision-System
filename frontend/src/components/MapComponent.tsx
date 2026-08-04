@@ -275,7 +275,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   // ── Render ─────────────────────────────────────────────────
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', borderRadius: '16px', overflow: 'hidden' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
 
       {/* Controls Overlay */}
       <div style={{

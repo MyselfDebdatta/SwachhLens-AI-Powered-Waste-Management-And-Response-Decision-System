@@ -888,7 +888,7 @@ const Dashboard: React.FC = () => {
     switch (activeTab) {
       case 'overview': return renderOverview();
       case 'map': return (
-        <div style={{ flex: 1, overflow: 'hidden', padding: '0 0 16px 0' }}>
+        <div style={{ flex: 1, overflow: 'hidden' }}>
           <MapComponent
             bins={bins}
             routes={routes}
