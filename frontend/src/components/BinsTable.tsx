@@ -88,10 +88,10 @@ const BinsTable: React.FC<BinsTableProps> = ({ bins, onSelectBin, selectedBinId 
       {/* Summary Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', flexShrink: 0 }}>
         {[
-          { label: 'Total Bins', value: bins.length, color: 'var(--accent-cyan)', key: 'all' },
-          { label: 'Critical (≥80%)', value: criticalCount, color: 'var(--color-danger)', key: 'critical' },
-          { label: 'Warning (50-80%)', value: warningCount, color: 'var(--color-warning)', key: 'warning' },
-          { label: 'Normal (<50%)', value: bins.length - criticalCount - warningCount, color: 'var(--color-success)', key: 'normal' },
+          { label: 'Total Bins', value: bins.length, color: '#06b6d4', key: 'all' },
+          { label: 'Critical (≥80%)', value: criticalCount, color: '#ef4444', key: 'critical' },
+          { label: 'Warning (50-80%)', value: warningCount, color: '#f59e0b', key: 'warning' },
+          { label: 'Normal (<50%)', value: bins.length - criticalCount - warningCount, color: '#10b981', key: 'normal' },
         ].map(c => (
           <button key={c.key}
             onClick={() => setStatusFilter(statusFilter === c.key ? 'all' : c.key as any)}
@@ -110,14 +110,27 @@ const BinsTable: React.FC<BinsTableProps> = ({ bins, onSelectBin, selectedBinId 
 
       {/* Search + Filters */}
       <div style={{ display: 'flex', gap: '10px', flexShrink: 0, alignItems: 'center' }}>
-        <div className="search-wrapper" style={{ flex: 1 }}>
-          <Search size={14} className="search-icon" />
+        <div style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <Search size={14} style={{ position: 'absolute', left: '12px', color: 'var(--text-muted)' }} />
           <input
             type="text"
-            className="search-input"
             placeholder="Search by Bin ID, street, area, ward..."
             value={search}
             onChange={e => setSearch(e.target.value)}
+            style={{
+              width: '100%',
+              background: 'var(--bg-secondary)',
+              border: '1px solid var(--border-glass)',
+              borderRadius: '8px',
+              padding: '8px 12px 8px 32px',
+              color: 'var(--text-primary)',
+              fontSize: '13px',
+              outline: 'none',
+              fontFamily: 'var(--font-sans)',
+              transition: 'border-color 0.2s'
+            }}
+            onFocus={(e) => e.target.style.borderColor = 'var(--accent-cyan)'}
+            onBlur={(e) => e.target.style.borderColor = 'var(--border-glass)'}
           />
         </div>
         <select
