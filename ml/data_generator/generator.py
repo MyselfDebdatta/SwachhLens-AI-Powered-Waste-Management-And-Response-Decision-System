@@ -1,7 +1,7 @@
 """
-Data Generator — Smart Waste Management Platform (Hyderabad, India)
+Data Generator — Smart Waste Management Platform (Bhubaneswar, India)
 Generates 365 days of realistic synthetic fill-level history for 100 smart bins
-distributed across Hyderabad's wards and landmarks.
+distributed across Bhubaneswar's wards and landmarks.
 
 Bin count: 100
 City: Bhubaneswar, Odisha, India
@@ -64,7 +64,7 @@ BHUBANESWAR_BINS = [
     {"bin_id":"BIN022","lat":20.3180,"lon":85.7211,"street":"Financial District Road","area":"Chandrasekharpur","ward":"Ward-15","ward_num":15,"area_type":"Commercial","cap":480},
     {"bin_id":"BIN023","lat":20.3225,"lon":85.7167,"street":"ISB Campus Gate","area":"Chandrasekharpur","ward":"Ward-15","ward_num":15,"area_type":"School","cap":360},
     {"bin_id":"BIN024","lat":20.3165,"lon":85.7230,"street":"Mind Space Junction","area":"Chandrasekharpur","ward":"Ward-15","ward_num":15,"area_type":"Commercial","cap":480},
-    {"bin_id":"BIN025","lat":20.3244,"lon":85.7145,"street":"University of Hyderabad Gate","area":"Chandrasekharpur","ward":"Ward-15","ward_num":15,"area_type":"School","cap":300},
+    {"bin_id":"BIN025","lat":20.3244,"lon":85.7145,"street":"University of Bhubaneswar Gate","area":"Chandrasekharpur","ward":"Ward-15","ward_num":15,"area_type":"School","cap":300},
     # ── Jayadev Vihar / Bapuji Nagar (Ward 5) ──
     {"bin_id":"BIN026","lat":20.3241,"lon":85.8314,"street":"Jayadev Vihar Airport Road","area":"Jayadev Vihar","ward":"Ward-5","ward_num":5,"area_type":"Commercial","cap":360},
     {"bin_id":"BIN027","lat":20.3263,"lon":85.8293,"street":"Sarojini Devi Hospital","area":"Jayadev Vihar","ward":"Ward-5","ward_num":5,"area_type":"Hospital","cap":480},
@@ -87,7 +87,7 @@ BHUBANESWAR_BINS = [
     {"bin_id":"BIN041","lat":20.3748,"lon":85.7696,"street":"KPHB Colony Phase 1","area":"Mancheswar","ward":"Ward-16","ward_num":16,"area_type":"Residential","cap":240},
     {"bin_id":"BIN042","lat":20.3772,"lon":85.7675,"street":"Mancheswar Metro Station","area":"Mancheswar","ward":"Ward-16","ward_num":16,"area_type":"Commercial","cap":360},
     {"bin_id":"BIN043","lat":20.3725,"lon":85.7718,"street":"BDL Junction","area":"Mancheswar","ward":"Ward-16","ward_num":16,"area_type":"Industrial","cap":300},
-    {"bin_id":"BIN044","lat":20.3791,"lon":85.7654,"street":"JNTU Hyderabad Gate","area":"Mancheswar","ward":"Ward-16","ward_num":16,"area_type":"School","cap":360},
+    {"bin_id":"BIN044","lat":20.3791,"lon":85.7654,"street":"JNTU Bhubaneswar Gate","area":"Mancheswar","ward":"Ward-16","ward_num":16,"area_type":"School","cap":360},
     {"bin_id":"BIN045","lat":20.3704,"lon":85.7740,"street":"Moosapet Main Road","area":"Mancheswar","ward":"Ward-16","ward_num":16,"area_type":"Market","cap":420},
     # ── Rasulgarh / Kalpana Square (Ward 2) ──
     {"bin_id":"BIN046","lat":20.2290,"lon":85.9246,"street":"Rasulgarh Circle","area":"Rasulgarh","ward":"Ward-2","ward_num":2,"area_type":"Commercial","cap":360},
@@ -288,7 +288,7 @@ def run_generation():
         db.commit()
         
         # ── Insert Bins ──
-        print("[3/5] Inserting 100 Hyderabad bin records...")
+        print("[3/5] Inserting 100 Bhubaneswar bin records...")
         installation_base = datetime.date(2022, 1, 1)
         for i, b in enumerate(BHUBANESWAR_BINS):
             install_date = installation_base + datetime.timedelta(days=random.randint(0, 180))
@@ -355,7 +355,7 @@ def run_generation():
             is_holiday = date_str in BHUBANESWAR_HOLIDAYS
             month = current_dt.month
             
-            # Hyderabad climate simulation
+            # Bhubaneswar climate simulation
             base_temp = 28 + 6 * np.sin(np.pi * (month - 3) / 6)  # Peak in May, low in Jan
             temperature = float(np.clip(np.random.normal(base_temp, 2.5), 18, 45))
             
