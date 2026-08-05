@@ -951,8 +951,8 @@ def get_driver_route(truck_id: str, db: Session = Depends(get_db)):
         else:
             enriched_path.append({
                 "type": "depot",
-                "latitude": node.get("latitude", 17.3850),
-                "longitude": node.get("longitude", 78.4867)
+                "latitude": node.get("latitude", 20.2961),
+                "longitude": node.get("longitude", 85.8245),
             })
 
     return {
@@ -1565,7 +1565,7 @@ def optimize_routes(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="No active trucks available.")
 
     # Depot = GHMC Headquarters, Hyderabad
-    depot_coords = {"latitude": 17.3850, "longitude": 78.4867}
+    depot_coords = {"latitude": 20.2961, "longitude": 85.8245}
 
     results = solve_cvrp(depot_coords, bins_to_collect, truck_fleet)
 
