@@ -27,7 +27,7 @@ from sqlalchemy.orm import Session
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from database.db import engine, init_db, SessionLocal
-from database.models import Bin, FillHistory, Truck, Driver
+from database.models import Bin, FillHistory, Truck, Driver, Prediction, CollectionRequest, Notification, OptimizedRoute
 
 # ──────────────────────────────────────────────────────────────
 #  100 BHUBANESWAR BINS — Real GPS Coordinates
@@ -264,7 +264,11 @@ def run_generation():
     try:
         # ── Clear existing data ──
         print("\n[1/5] Clearing existing data...")
+        db.query(Prediction).delete()
+        db.query(CollectionRequest).delete()
+        db.query(Notification).delete()
         db.query(FillHistory).delete()
+        db.query(OptimizedRoute).delete()
         db.query(Bin).delete()
         db.query(Truck).delete()
         db.query(Driver).delete()
