@@ -1018,7 +1018,7 @@ const Dashboard: React.FC = () => {
             </div>
             <div className="sidebar-brand-text">
               <h1>SwachhLens AI</h1>
-              <p>Hyderabad Municipal Corp.</p>
+              <p>Bhubaneswar Municipal Corp.</p>
             </div>
           </div>
         </div>
@@ -1096,7 +1096,7 @@ const Dashboard: React.FC = () => {
                 </span>
               </div>
               <span style={{ fontSize: '11.5px', color: 'var(--text-muted)', marginTop: '2px', fontWeight: 500 }}>
-                Municipal Waste Management Command Center · <strong style={{ color: 'var(--text-secondary)' }}>GHMC Hyderabad</strong>
+                Municipal Waste Management Command Center · <strong style={{ color: 'var(--text-secondary)' }}>BMC Bhubaneswar</strong>
               </span>
             </div>
           </div>

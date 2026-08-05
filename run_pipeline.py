@@ -1,10 +1,10 @@
 """
 Smart Waste Management Platform — Full Pipeline Runner
-Municipal Corporation of Hyderabad — AI Routing Engine
+Bhubaneswar Municipal Corporation — AI Routing Engine
 
 Runs the complete end-to-end ML and optimization pipeline:
   1. Database schema initialization
-  2. Synthetic data generation (100 Hyderabad bins × 365 days)
+  2. Synthetic data generation (100 Bhubaneswar bins × 365 days)
   3. XGBoost model training and evaluation
   4. 24h fill-level predictions for all bins
   5. CVRP route optimization (Google OR-Tools)
@@ -35,7 +35,7 @@ def main():
 
     print("=" * 65)
     print("  AI-Powered Smart Waste Management Platform v2.0")
-    print("  Municipal Corporation of Hyderabad, Telangana, India")
+    print("  Bhubaneswar Municipal Corporation, Odisha, India")
     print("=" * 65)
     print()
 
@@ -52,7 +52,7 @@ def main():
         db_test.close()
     except Exception as e:
         print(f"  [WARN] Database schema mismatch or error detected: {e}")
-        print("  [WARN] Rebuilding database schema to match the new Hyderabad layout...")
+        print("  [WARN] Rebuilding database schema to match the new Bhubaneswar layout...")
         need_rebuild = True
     
     if need_rebuild:
@@ -96,7 +96,7 @@ def main():
         )
         
         if should_generate:
-            print("[2/5] Generating 100-bin Hyderabad synthetic dataset...")
+            print("[2/5] Generating 100-bin Bhubaneswar synthetic dataset...")
             print("      100 bins × 365 days × 24 hrs = ~876,000 records")
             print("      Estimated time: 2-4 minutes...")
             print()

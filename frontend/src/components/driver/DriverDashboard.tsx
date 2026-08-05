@@ -548,7 +548,7 @@ const DriverDashboard: React.FC<DriverDashboardProps> = ({ truckId, driverName, 
                           🏛
                         </div>
                         <div>
-                          <div style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '13px' }}>Hyderabad Municipal Depot</div>
+                          <div style={{ color: 'var(--text-primary)', fontWeight: 700, fontSize: '13px' }}>Bhubaneswar Municipal Depot</div>
                           <div style={{ color: 'var(--text-secondary)', fontSize: '11px' }}>{idx === 0 ? 'Start Terminal' : 'Return Terminal'}</div>
                         </div>
                       </div>
@@ -640,7 +640,7 @@ const DriverDashboard: React.FC<DriverDashboardProps> = ({ truckId, driverName, 
                 if (node.type === 'depot') {
                   return (
                     <Marker key={`depot-marker-${idx}`} position={[node.latitude, node.longitude]} icon={depotIcon}>
-                      <Popup><div style={{ color: '#0f172a', fontWeight: 'bold' }}>Hyderabad Depot</div></Popup>
+                      <Popup><div style={{ color: '#0f172a', fontWeight: 'bold' }}>Bhubaneswar Depot</div></Popup>
                     </Marker>
                   );
                 }

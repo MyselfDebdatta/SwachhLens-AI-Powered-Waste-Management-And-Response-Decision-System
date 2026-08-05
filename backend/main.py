@@ -1,6 +1,6 @@
 """
 Smart Waste Management Platform — FastAPI Backend
-Municipal Corporation of Hyderabad — AI Routing Engine
+Bhubaneswar Municipal Corporation — AI Routing Engine
 
 Features:
     - IoT REST API (POST /api/bin/update) — ESP32 compatible

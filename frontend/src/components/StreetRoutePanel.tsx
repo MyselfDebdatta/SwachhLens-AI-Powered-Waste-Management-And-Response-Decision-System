@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigation, ChevronDown, ChevronUp, AlertTriangle, CheckCircle, Truck, User } from 'lucide-react';
+import { Navigation, ChevronDown, ChevronUp, AlertTriangle, CheckCircle, User } from 'lucide-react';
 
 // ─── Interfaces ──────────────────────────────────────────────
 

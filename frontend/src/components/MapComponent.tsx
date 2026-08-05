@@ -151,7 +151,7 @@ interface MapComponentProps {
 // ─── Constants ───────────────────────────────────────────────
 
 const ROUTE_COLORS = ['#06b6d4', '#8b5cf6', '#f97316', '#ec4899', '#10b981'];
-const HYDERABAD_CENTER: [number, number] = [17.3850, 78.4867];
+const BHUBANESWAR_CENTER: [number, number] = [20.2961, 85.8245];
 
 const MAP_LAYERS = {
   light: {
@@ -398,7 +398,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
       {/* Leaflet Map */}
       <MapContainer
-        center={HYDERABAD_CENTER}
+        center={BHUBANESWAR_CENTER}
         zoom={12}
         style={{ width: '100%', height: '100%' }}
         scrollWheelZoom={true}
@@ -408,12 +408,13 @@ const MapComponent: React.FC<MapComponentProps> = ({
         <TileLayer key={mapLayer} url={layer.url} attribution={layer.attribution} maxZoom={19} />
 
         {/* Depot Marker */}
-        <Marker position={HYDERABAD_CENTER} icon={depotIcon}>
+        <Marker position={BHUBANESWAR_CENTER} icon={depotIcon}>
           <Popup>
-            <div style={{ fontFamily: 'Outfit', fontWeight: 'bold', fontSize: '14px', color: '#f8fafc' }}>GHMC Depot — Hyderabad</div>
-            <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
-              Municipal Corporation Operations HQ<br />
-              Lat: {HYDERABAD_CENTER[0].toFixed(4)}, Lon: {HYDERABAD_CENTER[1].toFixed(4)}
+            <div style={{ padding: '8px', textAlign: 'center' }}>
+              <h4 style={{ margin: '0 0 4px 0', fontSize: '14px', color: 'var(--text-primary)' }}>Central Waste Depot</h4>
+              <p style={{ margin: 0, fontSize: '11px', color: 'var(--text-muted)' }}>
+                Lat: {BHUBANESWAR_CENTER[0].toFixed(4)}, Lon: {BHUBANESWAR_CENTER[1].toFixed(4)}
+              </p>
             </div>
           </Popup>
         </Marker>

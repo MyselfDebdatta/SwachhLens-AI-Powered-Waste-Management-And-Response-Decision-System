@@ -1,7 +1,7 @@
 import pandas as pd
 
-# Hyderabad public holidays (approximate 2023-2026)
-HYDERABAD_HOLIDAYS = {
+# Bhubaneswar public holidays (approximate 2023-2026)
+BHUBANESWAR_HOLIDAYS = {
     "2023-01-01", "2023-01-26", "2023-08-15", "2023-10-02", "2023-12-25",
     "2024-01-01", "2024-01-26", "2024-03-25", "2024-03-29",
     "2024-04-14", "2024-04-17", "2024-04-21", "2024-05-23",
@@ -20,4 +20,4 @@ def is_weekend(timestamp: pd.Timestamp) -> int:
 def is_public_holiday(timestamp: pd.Timestamp) -> int:
     """Returns 1 if the timestamp falls on a defined public holiday, 0 otherwise."""
     date_str = timestamp.strftime("%Y-%m-%d")
-    return 1 if date_str in HYDERABAD_HOLIDAYS else 0
+    return 1 if date_str in BHUBANESWAR_HOLIDAYS else 0
