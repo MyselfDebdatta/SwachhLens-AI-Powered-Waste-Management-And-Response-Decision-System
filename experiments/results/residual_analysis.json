@@ -1,6 +1,6 @@
 {
-    "residual_mean": -5.895690644609881,
-    "residual_std": 4.057877239185952,
-    "brier_score": 0.10792952501269618,
+    "residual_mean": -5.551168285301238,
+    "residual_std": 3.9220174572426436,
+    "brier_score": 0.10336925154111332,
     "rmse_metadata_used": 7.157201678396654
 }
