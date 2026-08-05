@@ -182,10 +182,10 @@ async def lifespan(app: FastAPI):
     _db = SessionLocal()
     try:
         MAINTENANCE_TEAM = [
-            {"worker_id": "MNT001", "name": "Arun Sharma", "phone": "+91 99001 11001", "zone": "Banjara Hills / Jubilee Hills"},
-            {"worker_id": "MNT002", "name": "Sujatha Devi", "phone": "+91 99001 11002", "zone": "Begumpet / Secunderabad"},
-            {"worker_id": "MNT003", "name": "Ravi Kiran", "phone": "+91 99001 11003", "zone": "Kukatpally / KPHB"},
-            {"worker_id": "MNT004", "name": "Priya Nair", "phone": "+91 99001 11004", "zone": "LB Nagar / Dilsukhnagar"},
+            {"worker_id": "MNT001", "name": "Arun Sharma", "phone": "+91 99001 11001", "zone": "Saheed Nagar / Nayapalli"},
+            {"worker_id": "MNT002", "name": "Sujatha Devi", "phone": "+91 99001 11002", "zone": "Jayadev Vihar / Bapuji Nagar"},
+            {"worker_id": "MNT003", "name": "Ravi Kiran", "phone": "+91 99001 11003", "zone": "Mancheswar / VSS Nagar"},
+            {"worker_id": "MNT004", "name": "Priya Nair", "phone": "+91 99001 11004", "zone": "Rasulgarh / Kalpana Square"},
         ]
         for wdata in MAINTENANCE_TEAM:
             if not _db.query(MaintenanceWorker).filter(MaintenanceWorker.worker_id == wdata["worker_id"]).first():
