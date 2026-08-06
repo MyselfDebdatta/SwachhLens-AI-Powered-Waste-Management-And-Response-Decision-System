@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { AlertOctagon, AlertTriangle, AlertCircle, CheckCircle2, Battery, BatteryMedium, BatteryWarning, Wrench, Folder, CheckCircle, Trash2, Users, Clock, ClipboardList, Plus, MapPin, User, Phone, Map, Info } from 'lucide-react';
 
 // Optional: change API base url if needed, empty string uses relative
 const API = '';
@@ -65,7 +66,12 @@ const STATUS_COLOR: Record<string, { bg: string; text: string }> = {
   'In Progress': { bg: '#eff6ff', text: '#2563eb' },
   Resolved:    { bg: '#f0fdf4', text: '#16a34a' },
 };
-const PRIORITY_ICON: Record<string, string> = { Critical: '🔴', High: '🟠', Medium: '🟡', Low: '🟢' };
+const PRIORITY_ICON: Record<string, React.ReactNode> = { 
+  Critical: <AlertOctagon size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} />, 
+  High: <AlertTriangle size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} />, 
+  Medium: <AlertCircle size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} />, 
+  Low: <CheckCircle2 size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> 
+};
 
 function fmtTime(iso: string | null) {
   if (!iso) return '—';
@@ -83,9 +89,9 @@ function timeSince(iso: string | null) {
 }
 
 function batteryIcon(pct: number) {
-  if (pct > 60) return '🔋';
-  if (pct > 20) return '🪫';
-  return '⚠️';
+  if (pct > 60) return <Battery size={14} style={{ display: 'inline', verticalAlign: 'text-bottom' }} />;
+  if (pct > 20) return <BatteryMedium size={14} style={{ display: 'inline', verticalAlign: 'text-bottom' }} />;
+  return <BatteryWarning size={14} style={{ display: 'inline', verticalAlign: 'text-bottom' }} />;
 }
 
 export default function MaintenanceDashboard({ workerId, workerName, zone, onLogout }: Props) {
@@ -260,7 +266,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
     } as React.CSSProperties),
   };
 
-  const renderStatCard = (label: string, value: string | number, icon: string, accent: string, sub?: string) => (
+  const renderStatCard = (label: string, value: string | number, icon: React.ReactNode, accent: string, sub?: string) => (
     <div style={S.statCard(accent)}>
       <div style={{ fontSize: '22px', marginBottom: '8px' }}>{icon}</div>
       <div style={{ fontSize: '28px', fontWeight: 700, color: '#111827', lineHeight: 1 }}>{value}</div>
@@ -288,10 +294,10 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
               {isMyJob && <span style={{ fontSize: '11px', color: '#16a34a', fontWeight: 600 }}>● Assigned to you</span>}
             </div>
             <h3 style={{ margin: '0 0 4px', fontSize: '15px', fontWeight: 700, color: '#111827' }}>
-              🗑 Bin {job.bin_id} — {job.issue_type}
+              <Trash2 size={15} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> Bin {job.bin_id} — {job.issue_type}
             </h3>
             <div style={{ fontSize: '13px', color: '#4b5563', marginBottom: '4px' }}>
-              📍 {job.bin_street}, {job.bin_area} &nbsp;·&nbsp; Ward: {job.bin_ward}
+              <MapPin size={13} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {job.bin_street}, {job.bin_area} &nbsp;·&nbsp; Ward: {job.bin_ward}
             </div>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '12px', color: '#9ca3af' }}>
@@ -311,7 +317,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
             </div>
             {job.worker_name && (
               <div style={{ marginTop: '6px', fontSize: '12px', color: '#6b7280' }}>
-                👷 Assigned to: <b style={{ color: '#2563eb' }}>{job.worker_name}</b>
+                <User size={13} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> Assigned to: <b style={{ color: '#2563eb' }}>{job.worker_name}</b>
               </div>
             )}
           </div>
@@ -323,7 +329,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
                 onClick={() => handleUpdateJob(job.log_id, 'In Progress')}
                 style={S.actionBtn('blue', actionLoading)}
               >
-                🔧 Accept Job
+                <Wrench size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> Accept Job
               </button>
             )}
             {job.status === 'In Progress' && job.worker_id === workerId && (
@@ -332,7 +338,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
                   onClick={() => { setSelectedJob(job); setResolveNotes(''); }}
                   style={S.actionBtn('green')}
                 >
-                  ✅ Mark Resolved
+                  <CheckCircle size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> Mark Resolved
                 </button>
               </>
             )}
@@ -341,7 +347,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
             )}
             {job.status === 'Resolved' && (
               <div style={{ fontSize: '12px', color: '#16a34a' }}>
-                ✅ Resolved {fmtTime(job.resolved_at)}
+                <CheckCircle size={13} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> Resolved {fmtTime(job.resolved_at)}
               </div>
             )}
             {job.bin_lat && (
@@ -351,7 +357,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
                 rel="noopener noreferrer"
                 style={{ fontSize: '12px', color: '#2563eb', textDecoration: 'none', fontWeight: 500 }}
               >
-                📍 Open in Maps
+                <MapPin size={13} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> Open in Maps
               </a>
             )}
           </div>
@@ -382,11 +388,11 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
               </span>
             </div>
             <div style={{ marginTop: '12px', fontSize: '12px', color: '#4b5563', lineHeight: '1.8' }}>
-              <div>📞 {w.phone}</div>
-              <div>🗺 {w.zone}</div>
+              <div><Phone size={13} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {w.phone}</div>
+              <div><Map size={13} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {w.zone}</div>
               <div style={{ display: 'flex', gap: '16px', marginTop: '8px' }}>
-                <span>🔧 <b style={{ color: '#dc2626' }}>{w.open_jobs}</b> open</span>
-                <span>✅ <b style={{ color: '#16a34a' }}>{w.resolved_total}</b> resolved</span>
+                <span><Wrench size={13} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> <b style={{ color: '#dc2626' }}>{w.open_jobs}</b> open</span>
+                <span><CheckCircle size={13} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> <b style={{ color: '#16a34a' }}>{w.resolved_total}</b> resolved</span>
               </div>
             </div>
           </div>
@@ -462,7 +468,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
             style={{ width: '100%', boxSizing: 'border-box', padding: '11px 14px', borderRadius: '8px', border: '1.5px solid #d1d5db', fontSize: '14px', fontFamily: 'inherit', outline: 'none', resize: 'vertical' }}
           />
         </div>
-        {createError && <div style={{ marginBottom: '14px', padding: '10px 14px', background: '#fef2f2', borderRadius: '8px', color: '#dc2626', fontSize: '13px' }}>⚠ {createError}</div>}
+        {createError && <div style={{ marginBottom: '14px', padding: '10px 14px', background: '#fef2f2', borderRadius: '8px', color: '#dc2626', fontSize: '13px' }}><AlertTriangle size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {createError}</div>}
         {createSuccess && <div style={{ marginBottom: '14px', padding: '10px 14px', background: '#f0fdf4', borderRadius: '8px', color: '#16a34a', fontSize: '13px' }}>{createSuccess}</div>}
         <button
           onClick={handleCreateJob}
@@ -478,7 +484,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
     return (
       <div style={{ ...S.container, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '36px', marginBottom: '12px' }}>🔧</div>
+          <div style={{ fontSize: '36px', marginBottom: '12px' }}><Wrench size={32} color="#fff" /></div>
           <div style={{ fontSize: '16px', color: '#6b7280' }}>Loading maintenance portal...</div>
         </div>
       </div>
@@ -490,7 +496,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
       {/* Navbar */}
       <nav style={S.navbar}>
         <div style={S.navLeft}>
-          <div style={S.logo}>🔧</div>
+          <div style={S.logo}><Wrench size={32} color="#fff" /></div>
           <div>
             <div style={S.navTitle}>SwachhLens Maintenance</div>
             <div style={S.navSub}>Municipal Field Services Portal</div>
@@ -510,12 +516,12 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
         {/* Stats Row */}
         {stats && (
           <div style={S.statsGrid}>
-            {renderStatCard('Open Jobs', stats.total_open, '📂', '#dc2626', 'awaiting action')}
-            {renderStatCard('In Progress', stats.in_progress, '🔧', '#2563eb', 'being fixed now')}
-            {renderStatCard('Resolved Today', stats.resolved_today, '✅', '#16a34a', 'completed today')}
-            {renderStatCard('Bins in Maintenance', stats.bins_in_maintenance, '🗑', '#d97706', 'offline for repair')}
-            {renderStatCard('Workers On Job', `${stats.workers_on_job}/${stats.total_workers}`, '👷', '#7c3aed', 'field team')}
-            {renderStatCard('Avg Resolution', `${stats.avg_resolution_hours}h`, '⏱', '#0891b2', 'per job')}
+            {renderStatCard('Open Jobs', stats.total_open, <Folder size={24} color="#dc2626" />, '#dc2626', 'awaiting action')}
+            {renderStatCard('In Progress', stats.in_progress, <Wrench size={24} color="#2563eb" />, '#2563eb', 'being fixed now')}
+            {renderStatCard('Resolved Today', stats.resolved_today, <CheckCircle size={24} color="#16a34a" />, '#16a34a', 'completed today')}
+            {renderStatCard('Bins in Maintenance', stats.bins_in_maintenance, <Trash2 size={24} color="#d97706" />, '#d97706', 'offline for repair')}
+            {renderStatCard('Workers On Job', `${stats.workers_on_job}/${stats.total_workers}`, <Users size={24} color="#7c3aed" />, '#7c3aed', 'field team')}
+            {renderStatCard('Avg Resolution', `${stats.avg_resolution_hours}h`, <Clock size={24} color="#0891b2" />, '#0891b2', 'per job')}
           </div>
         )}
 
@@ -538,7 +544,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
               boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
             }} onClick={e => e.stopPropagation()}>
               <h3 style={{ margin: '0 0 6px', fontSize: '18px', fontWeight: 700, color: '#111827' }}>
-                ✅ Resolve Maintenance Job
+                <CheckCircle size={18} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '6px' }} /> Resolve Maintenance Job
               </h3>
               <p style={{ margin: '0 0 18px', fontSize: '13px', color: '#6b7280' }}>
                 Bin <b>{selectedJob.bin_id}</b> — {selectedJob.issue_type} at {selectedJob.bin_street}
@@ -571,13 +577,12 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
           </div>
         )}
 
-        {/* Tabs */}
         <div style={S.tabs}>
           {([
-            { id: 'myJobs', label: `📋 My Jobs (${jobs.filter(j => j.status !== 'Resolved').length})` },
-            { id: 'allJobs', label: `📁 All Jobs (${allJobs.length})` },
-            { id: 'workers', label: `👷 Team (${workers.length})` },
-            { id: 'createJob', label: `+ New Job` },
+            { id: 'myJobs', label: <><ClipboardList size={16} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '6px' }} /> My Jobs ({jobs.filter(j => j.status !== 'Resolved').length})</> },
+            { id: 'allJobs', label: <><Folder size={16} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '6px' }} /> All Jobs ({allJobs.length})</> },
+            { id: 'workers', label: <><Users size={16} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '6px' }} /> Team ({workers.length})</> },
+            { id: 'createJob', label: <><Plus size={16} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '6px' }} /> New Job</> },
           ] as const).map(t => (
             <button key={t.id} onClick={() => setTab(t.id)} style={S.tab(tab === t.id)}>
               {t.label}
