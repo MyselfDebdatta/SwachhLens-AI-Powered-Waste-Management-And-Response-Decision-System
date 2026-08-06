@@ -182,17 +182,7 @@ const Analytics = ({ comparison, savings, ml_evaluation, area_breakdown }: Analy
 
       {/* Savings Summary Banner */}
       <div className="glass-panel" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', padding: '16px', gap: '16px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{
-          position: 'absolute',
-          top: '-20px',
-          right: '-20px',
-          width: '80px',
-          height: '80px',
-          background: 'rgba(6, 182, 212, 0.1)',
-          filter: 'blur(30px)',
-          borderRadius: '50%'
-        }}></div>
-        
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <span style={{ fontSize: '11px', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Distance Reduced</span>
           <strong style={{ fontFamily: 'Outfit', fontSize: '24px', color: 'var(--accent-cyan)' }}>-{savings.distance_km} km</strong>
