@@ -72,10 +72,10 @@ const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ notifications, 
       {/* Summary Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', flexShrink: 0 }}>
         {[
-          { key: 'all', label: 'All', count: notifications.length, color: 'var(--text-secondary)' },
-          { key: 'unread', label: 'Unread', count: unreadCount, color: 'var(--accent-cyan)' },
-          { key: 'Critical', label: 'Critical', count: notifications.filter(n => n.severity === 'Critical').length, color: 'var(--color-danger)' },
-          { key: 'Warning', label: 'Warning', count: notifications.filter(n => n.severity === 'Warning').length, color: 'var(--color-warning)' },
+          { key: 'all', label: 'All', count: notifications.length, color: '#cbd5e1' },
+          { key: 'unread', label: 'Unread', count: unreadCount, color: '#06b6d4' },
+          { key: 'Critical', label: 'Critical', count: notifications.filter(n => n.severity === 'Critical').length, color: '#ef4444' },
+          { key: 'Warning', label: 'Warning', count: notifications.filter(n => n.severity === 'Warning').length, color: '#f59e0b' },
         ].map(s => (
           <button key={s.key}
             onClick={() => setFilter(s.key as any)}
