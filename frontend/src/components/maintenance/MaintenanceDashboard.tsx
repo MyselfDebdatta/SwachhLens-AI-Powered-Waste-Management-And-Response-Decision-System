@@ -187,7 +187,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
 
   const S = {
     container: {
-      minHeight: '100vh', background: '#f5f7fa',
+      height: '100vh', overflowY: 'auto', background: '#f5f7fa',
       fontFamily: "'Inter', 'Segoe UI', sans-serif",
     } as React.CSSProperties,
     navbar: {
