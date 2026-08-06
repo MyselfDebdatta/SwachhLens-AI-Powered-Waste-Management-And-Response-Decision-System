@@ -70,7 +70,7 @@ const SimulationControls: React.FC<SimulationControlsProps> = ({
         </div>
 
         {/* Speed Selector */}
-        <div>
+        <div style={{ marginBottom: '24px' }}>
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.07em', fontWeight: 600, marginBottom: '8px' }}>
             Simulation Speed
           </div>
