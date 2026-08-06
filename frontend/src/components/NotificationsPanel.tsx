@@ -70,7 +70,7 @@ const NotificationsPanel: React.FC<NotificationsPanelProps> = ({ notifications, 
       </div>
 
       {/* Summary Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', flexShrink: 0 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px', flexShrink: 0, padding: '2px' }}>
         {[
           { key: 'all', label: 'All', count: notifications.length, color: '#cbd5e1' },
           { key: 'unread', label: 'Unread', count: unreadCount, color: '#06b6d4' },

@@ -74,17 +74,34 @@ const SimulationControls: React.FC<SimulationControlsProps> = ({
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.07em', fontWeight: 600, marginBottom: '8px' }}>
             Simulation Speed
           </div>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'inline-flex', background: 'var(--bg-secondary)', borderRadius: '12px', padding: '4px', border: '1px solid var(--border-glass)' }}>
             {SPEED_OPTIONS.map(s => (
               <button key={s.value}
                 onClick={() => setSelectedSpeed(s.value)}
-                className={`speed-btn ${selectedSpeed === s.value ? 'active' : ''}`}
                 disabled={isRunning}
                 title={s.desc}
+                style={{
+                  background: selectedSpeed === s.value ? 'var(--accent-cyan)' : 'transparent',
+                  color: selectedSpeed === s.value ? '#000' : 'var(--text-secondary)',
+                  border: 'none',
+                  borderRadius: '8px',
+                  padding: '8px 16px',
+                  cursor: isRunning ? 'not-allowed' : 'pointer',
+                  fontWeight: selectedSpeed === s.value ? 800 : 600,
+                  fontSize: '13px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '2px',
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  opacity: isRunning && selectedSpeed !== s.value ? 0.4 : 1
+                }}
               >
-                <Zap size={11} style={{ display: 'inline', marginRight: '3px' }} />
-                {s.label}
-                <span style={{ display: 'block', fontSize: '9px', opacity: 0.7 }}>{s.desc}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <Zap size={12} fill={selectedSpeed === s.value ? '#000' : 'none'} />
+                  {s.label}
+                </div>
+                <span style={{ fontSize: '9px', opacity: selectedSpeed === s.value ? 0.8 : 0.5, fontWeight: 500 }}>{s.desc}</span>
               </button>
             ))}
           </div>
