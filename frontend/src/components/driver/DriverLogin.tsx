@@ -225,6 +225,16 @@ const DriverLogin: React.FC<DriverLoginProps> = ({ onLogin }) => {
             </button>
           </form>
         )}
+
+        {/* Footer */}
+        <div style={{ textAlign: 'center', marginTop: '24px' }}>
+          <a
+            href="/"
+            style={{ fontSize: '13px', color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: 500 }}
+          >
+            ← Back to Admin Dashboard
+          </a>
+        </div>
       </div>
     </div>
   );
