@@ -61,11 +61,11 @@ export default function MaintenanceLogin({ onLogin }: MaintenanceLoginProps) {
 
   return (
     <div style={{
-      minHeight: '100vh',
+      height: '100vh',
+      overflowY: 'auto',
       background: 'linear-gradient(135deg, #f0f4f8 0%, #dce8f0 50%, #e8f4ec 100%)',
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      flexDirection: 'column',
       fontFamily: "'Inter', 'Segoe UI', sans-serif",
       padding: '24px',
     }}>
@@ -76,7 +76,7 @@ export default function MaintenanceLogin({ onLogin }: MaintenanceLoginProps) {
         pointerEvents: 'none',
       }} />
 
-      <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: '460px' }}>
+      <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: '460px', margin: 'auto', paddingTop: '40px', paddingBottom: '40px' }}>
         <div style={{ position: 'absolute', top: -40, right: 0 }}>
           <LanguageSwitcher />
         </div>
