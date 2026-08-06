@@ -109,7 +109,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
   const [actionMsg, setActionMsg] = useState('');
   
   // Create job state
-  const [createForm, setCreateForm] = useState({ bin_id: '', issue_type: 'Overflow', notes: '', priority: 'Medium', worker_id: workerId });
+  const [createForm, setCreateForm] = useState({ bin_id: '', issue_type: 'Overflow', notes: '', priority: 'Medium', worker_id: '' });
   const [createError, setCreateError] = useState('');
   const [createSuccess, setCreateSuccess] = useState('');
 
@@ -143,7 +143,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
         body: JSON.stringify({ log_id: logId, status, worker_id: workerId, resolution_notes: resolveNotes }),
       });
       if (res.ok) {
-        setActionMsg(status === 'Resolved' ? '✅ Job resolved! Bin restored to Active.' : '✅ Status updated.');
+        setActionMsg(status === 'Resolved' ? 'Job resolved! Bin restored to Active.' : 'Status updated.');
         setSelectedJob(null);
         setResolveNotes('');
         await loadData();
@@ -164,8 +164,9 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
         body: JSON.stringify(createForm),
       });
       if (res.ok) {
-        setCreateSuccess('✅ Maintenance job created successfully.');
+        setCreateSuccess('Maintenance job created successfully.');
         setCreateForm({ ...createForm, bin_id: '', notes: '' });
+        setTimeout(() => setTab('myJobs'), 1500);
         await loadData();
       } else {
         const e = await res.json();
@@ -173,6 +174,12 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
       }
     } catch {
       setCreateError('Connection error. Is the backend running?');
+    }
+  };
+
+  const handleResolve = async () => {
+    if (selectedJob) {
+      await handleUpdateJob(selectedJob.log_id, 'Resolved');
     }
   };
 
@@ -375,7 +382,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <div>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#111827', marginBottom: '2px' }}>
-                  {w.worker_id === workerId ? `👤 ${w.name} (You)` : `👷 ${w.name}`}
+                  {w.worker_id === workerId ? <><User size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {w.name} (You)</> : <><User size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {w.name}</>}
                 </div>
                 <div style={{ fontSize: '12px', color: '#6b7280' }}>{w.worker_id}</div>
               </div>
@@ -469,7 +476,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
           />
         </div>
         {createError && <div style={{ marginBottom: '14px', padding: '10px 14px', background: '#fef2f2', borderRadius: '8px', color: '#dc2626', fontSize: '13px' }}><AlertTriangle size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {createError}</div>}
-        {createSuccess && <div style={{ marginBottom: '14px', padding: '10px 14px', background: '#f0fdf4', borderRadius: '8px', color: '#16a34a', fontSize: '13px' }}>{createSuccess}</div>}
+        {createSuccess && <div style={{ marginBottom: '14px', padding: '10px 14px', background: '#f0fdf4', borderRadius: '8px', color: '#16a34a', fontSize: '13px' }}><CheckCircle2 size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> {createSuccess}</div>}
         <button
           onClick={handleCreateJob}
           style={{ ...S.actionBtn('green'), width: '100%', padding: '13px', fontSize: '14px' }}
@@ -528,7 +535,7 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
         {/* Action Message */}
         {actionMsg && (
           <div style={{ marginBottom: '18px', padding: '12px 18px', background: '#f0fdf4', borderRadius: '10px', border: '1px solid #bbf7d0', color: '#15803d', fontSize: '14px', fontWeight: 500 }}>
-            {actionMsg}
+            <CheckCircle2 size={16} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '6px' }} /> {actionMsg}
             <button onClick={() => setActionMsg('')} style={{ float: 'right', background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280' }}>×</button>
           </div>
         )}
@@ -563,11 +570,11 @@ export default function MaintenanceDashboard({ workerId, workerName, zone, onLog
               </div>
               <div style={{ display: 'flex', gap: '12px' }}>
                 <button
-                  onClick={() => handleUpdateJob(selectedJob.log_id, 'Resolved')}
+                  onClick={handleResolve}
                   disabled={actionLoading}
-                  style={{ ...S.actionBtn('green', actionLoading), flex: 1, padding: '12px' }}
+                  style={{ ...S.actionBtn('green', actionLoading), width: '100%', padding: '12px' }}
                 >
-                  {actionLoading ? 'Saving...' : '✅ Confirm Resolved'}
+                  {actionLoading ? 'Saving...' : <><CheckCircle size={14} style={{ display: 'inline', verticalAlign: 'text-bottom', marginRight: '4px' }} /> Confirm Resolved</>}
                 </button>
                 <button onClick={() => setSelectedJob(null)} style={{ ...S.actionBtn('gray'), padding: '12px 20px' }}>
                   Cancel
