@@ -74,7 +74,7 @@ const SimulationControls: React.FC<SimulationControlsProps> = ({
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.07em', fontWeight: 600, marginBottom: '8px' }}>
             Simulation Speed
           </div>
-          <div style={{ display: 'inline-flex', background: 'var(--bg-secondary)', borderRadius: '12px', padding: '4px', border: '1px solid var(--border-glass)' }}>
+          <div style={{ display: 'inline-flex', background: 'var(--bg-secondary)', borderRadius: '12px', padding: '6px', border: '1px solid var(--border-glass)', gap: '4px' }}>
             {SPEED_OPTIONS.map(s => (
               <button key={s.value}
                 onClick={() => setSelectedSpeed(s.value)}
@@ -85,23 +85,24 @@ const SimulationControls: React.FC<SimulationControlsProps> = ({
                   color: selectedSpeed === s.value ? '#000' : 'var(--text-secondary)',
                   border: 'none',
                   borderRadius: '8px',
-                  padding: '8px 16px',
+                  padding: '10px 20px',
                   cursor: isRunning ? 'not-allowed' : 'pointer',
                   fontWeight: selectedSpeed === s.value ? 800 : 600,
-                  fontSize: '13px',
+                  fontSize: '14px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '2px',
+                  justifyContent: 'center',
+                  gap: '4px',
                   transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                   opacity: isRunning && selectedSpeed !== s.value ? 0.4 : 1
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <Zap size={12} fill={selectedSpeed === s.value ? '#000' : 'none'} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Zap size={14} fill={selectedSpeed === s.value ? '#000' : 'none'} />
                   {s.label}
                 </div>
-                <span style={{ fontSize: '9px', opacity: selectedSpeed === s.value ? 0.8 : 0.5, fontWeight: 500 }}>{s.desc}</span>
+                <span style={{ fontSize: '10px', opacity: selectedSpeed === s.value ? 0.8 : 0.5, fontWeight: 500, letterSpacing: '0.02em' }}>{s.desc}</span>
               </button>
             ))}
           </div>

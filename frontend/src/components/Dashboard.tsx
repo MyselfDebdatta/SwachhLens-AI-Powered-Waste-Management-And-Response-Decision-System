@@ -988,17 +988,12 @@ const Dashboard: React.FC = () => {
         </div>
       );
       case 'simulation': return (
-        <div className="main-grid">
-          <div className="main-content glass-panel" style={{ padding: '24px', overflowY: 'auto' }}>
-            <SimulationControls
-              isRunning={simRunning} currentSpeed={simSpeed}
-              onStart={handleStartSim} onStop={handleStopSim} onReset={handleResetSim}
-              bins={bins.map(b => ({ bin_id: b.bin_id, current_fill_percentage: b.current_fill_percentage ?? 0, area_type: b.area_type }))}
-            />
-          </div>
-          <div className="side-panel glass-panel">
-            <BinsTable bins={bins} selectedBinId={selectedBinId} onSelectBin={setSelectedBinId} onEditBin={handleOpenEditBinModal} />
-          </div>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px' }}>
+          <SimulationControls
+            isRunning={simRunning} currentSpeed={simSpeed}
+            onStart={handleStartSim} onStop={handleStopSim} onReset={handleResetSim}
+            bins={bins.map(b => ({ bin_id: b.bin_id, current_fill_percentage: b.current_fill_percentage ?? 0, area_type: b.area_type }))}
+          />
         </div>
       );
       case 'maintenance': return (
@@ -1157,7 +1152,7 @@ const Dashboard: React.FC = () => {
               <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                 {renderTabContent()}
               </div>
-              {activeTab !== 'simulation' && renderInspector()}
+              {renderInspector()}
             </div>
           )}
         </div>
