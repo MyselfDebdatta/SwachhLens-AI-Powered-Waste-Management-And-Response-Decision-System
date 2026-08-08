@@ -22,8 +22,6 @@ import asyncio
 import pickle
 import datetime
 import threading
-import numpy as np
-import pandas as pd
 from typing import List, Dict, Any, Optional, Set
 from contextlib import asynccontextmanager
 
@@ -36,10 +34,6 @@ from sqlalchemy import func
 from database.db import get_db, init_db, engine
 from database.models import Bin, FillHistory, Prediction, Truck, Driver, OptimizedRoute, Notification, CollectionRequest, MaintenanceWorker, MaintenanceLog, QRCode
 from backend.services.email_service import send_email_alert
-from ml.data_generator.generator import run_generation
-from ml.preprocessing.features import build_features
-from ml.forecasting.models import train_and_evaluate_models, calculate_overflow_probability
-from optimization.vrp_solver.solver import solve_cvrp, simulate_fixed_schedule
 
 # ─────────────────────────────────────────────────────────────
 #  GLOBAL SIMULATION STATE
@@ -77,6 +71,7 @@ class SimulationState:
         """Background simulation loop — calls the same IoT endpoint the ESP32 would use."""
         import requests
         import random
+        import numpy as np
         
         print(f"[Simulator] Started at {self.speed_multiplier}x speed (interval: {self.interval_seconds:.1f}s)")
         
@@ -198,7 +193,25 @@ async def lifespan(app: FastAPI):
     finally:
         _db.close()
     
+    # Start chat session cleanup background task (Phase 1 enhancement)
+    chat_cleanup_task = None
+    try:
+        from backend.services import chat_store
+        chat_cleanup_task = asyncio.create_task(chat_store.cleanup_loop())
+        print("[Server] Chat session cleanup task started.")
+    except Exception as e:
+        print(f"[Server] Chat cleanup start error: {e}")
+
     yield
+    
+    # Stop chat cleanup task if started
+    if chat_cleanup_task:
+        chat_cleanup_task.cancel()
+        try:
+            await chat_cleanup_task
+        except asyncio.CancelledError:
+            pass
+        print("[Server] Chat session cleanup task stopped.")
     sim_state.stop()
     print("[Server] Shutdown complete.")
 
@@ -232,6 +245,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Register chat router (Phase 1 REST-only chat)
+try:
+    from backend.routes.chat import router as chat_router
+    app.include_router(chat_router, prefix="/api/chat")
+    print("[Server] Chat router registered at /api/chat")
+except Exception as e:
+    print(f"[Server] Failed to register chat router: {e}")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -1414,6 +1435,7 @@ def get_maintenance_bins(db: Session = Depends(get_db)):
 @app.post("/api/generate-data", tags=["Admin"])
 def trigger_data_generation(background_tasks: BackgroundTasks):
     """Triggers historical synthetic data generation (100 bins × 365 days). Takes 2-5 minutes."""
+    from ml.data_generator.generator import run_generation
     background_tasks.add_task(run_generation)
     return {"message": "Data generation started in background. This may take 2-5 minutes."}
 
@@ -1421,6 +1443,7 @@ def trigger_data_generation(background_tasks: BackgroundTasks):
 @app.post("/api/train", tags=["ML"])
 def trigger_model_training(background_tasks: BackgroundTasks):
     """Triggers XGBoost model training and evaluation in the background."""
+    from ml.forecasting.models import train_and_evaluate_models
     background_tasks.add_task(train_and_evaluate_models)
     return {"message": "Model training started in background. Check /api/analytics for results."}
 
@@ -1455,6 +1478,11 @@ def generate_predictions(db: Session = Depends(get_db)):
     Runs the trained XGBoost model to forecast fill levels 24 hours ahead.
     Results stored in predictions table.
     """
+    import numpy as np
+    import pandas as pd
+    from ml.preprocessing.features import build_features
+    from ml.forecasting.models import calculate_overflow_probability
+
     model_path = os.path.join(os.path.dirname(__file__), "..", "ml", "models", "xgb_model.pkl")
     meta_path = os.path.join(os.path.dirname(__file__), "..", "ml", "models", "model_metadata.json")
 
@@ -1537,6 +1565,8 @@ def optimize_routes(db: Session = Depends(get_db)):
     Identifies critical bins (fill >= 80% OR priority >= 75) and computes
     optimized collection routes using Google OR-Tools CVRP.
     """
+    from optimization.vrp_solver.solver import solve_cvrp
+
     preds = db.query(Prediction, Bin).join(Bin, Prediction.bin_id == Bin.bin_id).all()
 
     if not preds:
@@ -1631,6 +1661,7 @@ def get_analytics(db: Session = Depends(get_db)):
     comparison = {}
     if os.path.exists(exp_file):
         try:
+            import pandas as pd
             df_agg = pd.read_csv(exp_file, index_col=0) # index is Strategy
             if "Full SwachhLens" in df_agg.index and "Fixed" in df_agg.index:
                 comparison = {

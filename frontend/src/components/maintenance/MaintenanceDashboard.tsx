@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { AlertOctagon, AlertTriangle, AlertCircle, CheckCircle2, Battery, BatteryMedium, BatteryWarning, Wrench, Folder, CheckCircle, Trash2, Users, Clock, ClipboardList, Plus, MapPin, User, Phone, Map, Info } from 'lucide-react';
+import { AlertOctagon, AlertTriangle, AlertCircle, CheckCircle2, Battery, BatteryMedium, BatteryWarning, Wrench, Folder, CheckCircle, Trash2, Users, Clock, ClipboardList, Plus, MapPin, User, Phone, Map } from 'lucide-react';
 
 // Optional: change API base url if needed, empty string uses relative
 const API = '';
