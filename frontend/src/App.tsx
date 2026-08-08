@@ -4,6 +4,7 @@ import DriverLogin from './components/driver/DriverLogin';
 import DriverDashboard from './components/driver/DriverDashboard';
 import MaintenanceLogin from './components/maintenance/MaintenanceLogin';
 import MaintenanceDashboard from './components/maintenance/MaintenanceDashboard';
+import ChatWidget from './components/chat/ChatWidget';
 
 function App() {
   const [route, setRoute] = useState(window.location.pathname);
@@ -61,32 +62,48 @@ function App() {
     navigate('/maintenance');
   };
 
-  // ── Routing ─────────────────────────────────────────────────
-  if (route.startsWith('/driver/dashboard')) {
-    if (!driverState) { navigate('/driver'); return null; }
-    return <DriverDashboard truckId={driverState.truckId} driverName={driverState.driverName} onLogout={handleDriverLogout} />;
-  }
-  if (route.startsWith('/driver')) {
-    if (driverState) { navigate('/driver/dashboard'); return null; }
-    return <DriverLogin onLogin={handleDriverLogin} />;
-  }
+  // Helper to resolve current route content & context user ID
+  const renderContent = () => {
+    if (route.startsWith('/driver/dashboard')) {
+      if (!driverState) { navigate('/driver'); return null; }
+      return (
+        <>
+          <DriverDashboard truckId={driverState.truckId} driverName={driverState.driverName} onLogout={handleDriverLogout} />
+          <ChatWidget userId={`driver_${driverState.driverName}`} />
+        </>
+      );
+    }
+    if (route.startsWith('/driver')) {
+      if (driverState) { navigate('/driver/dashboard'); return null; }
+      return <DriverLogin onLogin={handleDriverLogin} />;
+    }
 
-  if (route.startsWith('/maintenance/dashboard')) {
-    if (!mntState) { navigate('/maintenance'); return null; }
-    return <MaintenanceDashboard workerId={mntState.workerId} workerName={mntState.workerName} zone={mntState.zone} onLogout={handleMntLogout} />;
-  }
-  if (route.startsWith('/maintenance')) {
-    if (mntState) { navigate('/maintenance/dashboard'); return null; }
-    return <MaintenanceLogin onLogin={handleMntLogin} />;
-  }
+    if (route.startsWith('/maintenance/dashboard')) {
+      if (!mntState) { navigate('/maintenance'); return null; }
+      return (
+        <>
+          <MaintenanceDashboard workerId={mntState.workerId} workerName={mntState.workerName} zone={mntState.zone} onLogout={handleMntLogout} />
+          <ChatWidget userId={`worker_${mntState.workerId}`} />
+        </>
+      );
+    }
+    if (route.startsWith('/maintenance')) {
+      if (mntState) { navigate('/maintenance/dashboard'); return null; }
+      return <MaintenanceLogin onLogin={handleMntLogin} />;
+    }
 
-  // Admin dashboard (default route)
-  return (
-    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      <Dashboard />
-    </div>
-  );
+    // Admin dashboard (default route)
+    return (
+      <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
+        <Dashboard />
+        <ChatWidget userId="admin_operator" />
+      </div>
+    );
+  };
+
+  return renderContent();
 }
 
 export default App;
+
 
